@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sprite · 4 Slide dengan 3D & Karusel Gambar Dempet</title>
+  <!-- Google Fonts Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- AOS Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Swiper CSS untuk karusel -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #0b3b2c 0%, #1b6e4f 100%);
+      min-height: 100vh;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1300px;
+      width: 100%;
+      padding: 2rem 2rem;
+      margin: 0 auto;
+    }
+
+    /* NAVIGATION */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0 2.5rem 0;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo i {
+      font-size: 2.2rem;
+      color: #d4ff00;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+    .logo span {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #f5ffb2, #c6f77a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      font-weight: 600;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #e0ffe4;
+      font-size: 1.1rem;
+      transition: 0.2s;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+    }
+    .nav-links a:hover {
+      border-bottom-color: #b9ff66;
+      color: #ffffff;
+    }
+    .btn-order {
+      background: #ffda3f;
+      color: #1d4d3b;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.25s;
+      box-shadow: 0 10px 20px -8px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-order:hover {
+      background: #ffcc00;
+      transform: scale(1.02);
+      box-shadow: 0 16px 25px -8px black;
+    }
+
+    /* SLIDES CONTAINER */
+    .slides-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6rem;
+      margin-top: 1rem;
+    }
+
+    .slide {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 2rem;
+      align-items: center;
+      min-height: 600px;
+    }
+
+    /* LEFT COLUMN */
+    .left-col h2 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      background: linear-gradient(to right, #ffffff, #eaffb5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+    .left-col .subhead {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #d2ffc5;
+      margin-bottom: 1.5rem;
+    }
+    .flavor-tag {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 1.8rem;
+      flex-wrap: wrap;
+    }
+    .flavor-tag span {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(5px);
+      padding: 6px 20px;
+      border-radius: 40px;
+      border: 1px solid rgba(255,255,200,0.3);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .price-section {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 1.8rem;
+    }
+    .price-big {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #f9ffb4;
+    }
+    .price-big small {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #c2ffbe;
+    }
+    .badge {
+      background: #ffaa2b;
+      border-radius: 30px;
+      padding: 8px 20px;
+      font-weight: 700;
+      color: #1f3d31;
+      font-size: 1rem;
+    }
+
+    /* BUTTON GROUP */
+    .cta-group {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+    .btn-primary {
+      background: #d0ff00;
+      border: none;
+      color: #1d4d3b;
+      padding: 14px 38px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 22px #b1ff7c80;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-primary i { font-size: 1.3rem; }
+    .btn-primary:hover {
+      background: #e5ff73;
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 20px 30px #7fff9f50, 0 0 20px #d0ff00;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #b0ffb0;
+      color: white;
+      padding: 12px 26px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: #f5ffb7;
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 10px 25px rgba(180, 255, 140, 0.6), 0 0 15px #b0ffb0;
+    }
+
+    /* Mini buttons */
+    .mini-cta-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .mini-btn {
+      background: rgba(240, 255, 220, 0.1);
+      border: 1.5px solid rgba(150, 255, 120, 0.5);
+      color: white;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(4px);
+    }
+    .mini-btn i { color: #cbff9e; }
+    .mini-btn:hover {
+      background: rgba(160, 255, 140, 0.2);
+      border-color: #f5ffb7;
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(0, 255, 100, 0.4), 0 0 20px #b0ff90;
+    }
+
+    /* RIGHT COLUMN (3D canvas) */
+    .right-col {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 500px;
+      background: transparent;
+    }
+    .canvas-3d {
+      width: 100%;
+      height: auto;
+      max-width: 400px;
+      aspect-ratio: 1/1.5;
+      display: block;
+      background: transparent;
+      cursor: grab;
+    }
+    .canvas-3d:active { cursor: grabbing; }
+    .rotate-hint {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(4px);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: #e6ffcf;
+      border: 1px solid rgba(200,255,150,0.4);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* testimonial */
+    .testimonial-section {
+      margin-top: 6rem;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      border-top: 1px solid rgba(255,255,240,0.2);
+    }
+    .testi-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testi-item i { font-size: 2rem; color: #e2ff7c; }
+    .testi-text p { font-weight: 600; }
+    .testi-text small { color: #d0ffcf; opacity: 0.8; }
+
+    /* SLIDE 3 KHUSUS: gambar 3D berputar di tengah dengan judul */
+    .slide-three {
+      width: 100%;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 2rem 0;
+      position: relative;
+    }
+    .canvas-3d-image {
+      width: 100%;
+      height: 450px;
+      max-width: 600px;
+      display: block;
+      background: transparent;
+      margin: 0 auto;
+    }
+    .slide-three-title {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #ffffff, #eaffb5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 1px;
+    }
+    .slide-three-subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #d2ffc5;
+      margin-top: 0.5rem;
+    }
+
+    /* SLIDE 4: KARUSEL GAMBAR HORIZONTAL - TANPA KOTAK, HANYA GAMBAR POLOSAN */
+    .slide-four {
+      width: 100%;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 2rem 0;
+      padding: 2rem 0;
+      overflow: hidden;
+    }
+    .slide-four-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff, #e2ffb0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .slide-four-sub {
+      color: #d2ffc5;
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    /* Swiper karusel styling - tanpa background, border, shadow */
+    .swiper {
+      width: 100%;
+      height: 280px;
+      padding: 0;
+      margin: 0;
+    }
+    .swiper-wrapper {
+      transition-timing-function: linear !important; /* Untuk gerakan halus konstan */
+    }
+    .swiper-slide {
+      width: auto;
+      height: 250px;
+      background: transparent !important;
+      backdrop-filter: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slide-img {
+      width: auto;
+      height: 100%;
+      max-width: none;
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: none;
+      background: transparent;
+    }
+    .slide-img img {
+      width: auto;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
+    }
+    /* Hilangkan semua elemen navigasi Swiper */
+    .swiper-button-next,
+    .swiper-button-prev,
+    .swiper-pagination {
+      display: none !important;
+    }
+
+    /* responsive */
+    @media (max-width: 950px) {
+      .slide { grid-template-columns: 1fr; text-align: center; }
+      .left-col h2 { font-size: 2.8rem; }
+      .price-section, .flavor-tag, .cta-group, .mini-cta-grid { justify-content: center; }
+      .right-col { min-height: 400px; }
+      .navbar { flex-direction: column; }
+      .slide-three { min-height: 500px; }
+      .canvas-3d-image { height: 350px; }
+      .swiper-slide { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Navbar -->
+    <nav class="navbar" data-aos="fade-down" data-aos-duration="1000">
+      <div class="logo">
+        <i class="fas fa-bolt"></i>
+        <span>SPRITE</span>
+      </div>
+      <div class="nav-links">
+        <a href="#">Beranda</a>
+        <a href="#">Produk</a>
+        <a href="#">Kesegaran</a>
+        <a href="#">Kontak</a>
+      </div>
+      <button class="btn-order"><i class="fas fa-cart-plus"></i> Pesan Sekarang</button>
+    </nav>
+
+    <div class="slides-container">
+      <!-- SLIDE 1: KALENG -->
+      <div class="slide">
+        <div class="left-col" data-aos="fade-right" data-aos-duration="1200">
+          <h2>Segarnya <br>Lemon & Limau</h2>
+          <p class="subhead">Sprite kaleng edisi terbatas — sensasi gelembung yang lebih intense.</p>
+          <div class="flavor-tag">
+            <span data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-leaf"></i> 100% Rasa Asli</span>
+            <span data-aos="zoom-in" data-aos-delay="400"><i class="fas fa-bolt"></i> Karbonasi Max</span>
+            <span data-aos="zoom-in" data-aos-delay="600"><i class="fas fa-snowflake"></i> Zero Gula</span>
+          </div>
+          <div class="price-section" data-aos="fade-up" data-aos-delay="300">
+            <div class="price-big">Rp 7.900 <small>/kaleng</small></div>
+            <div class="badge"><i class="fas fa-tag"></i> Hemat 20%</div>
+          </div>
+          <div class="cta-group" data-aos="fade-up" data-aos-delay="500">
+            <button class="btn-primary"><i class="fas fa-shopping-bag"></i> Beli Sekarang</button>
+            <button class="btn-outline"><i class="fas fa-play"></i> Coba Gratis</button>
+          </div>
+          <div style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.8;" data-aos="fade-up" data-aos-delay="700">
+            <i class="fas fa-check-circle" style="color: #b3ff7c;"></i> Gratis ongkir minimal 4 kaleng
+          </div>
+        </div>
+        <div class="right-col" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+          <canvas id="spriteCanvas1" class="canvas-3d" width="500" height="750"></canvas>
+          <div class="rotate-hint"><i class="fas fa-mouse-pointer"></i> tarik untuk putar 3D</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: BOTOL HIJAU -->
+      <div class="slide">
+        <div class="right-col" style="grid-column: 1; grid-row: 1;" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="200">
+          <canvas id="spriteCanvas2" class="canvas-3d" width="500" height="750"></canvas>
+          <div class="rotate-hint"><i class="fas fa-mouse-pointer"></i> putar botol 3D</div>
+        </div>
+        <div class="left-col" style="grid-column: 2;" data-aos="fade-left" data-aos-duration="1200">
+          <h2>Sprite <span style="color: #b0ffb0;">Botol Hijau</span></h2>
+          <p class="subhead" style="font-size:1.25rem; margin-bottom:0.8rem;">
+            <i class="fas fa-droplet" style="color: #b0ffb0;"></i> Botol memanjang full hijau — ikon kesegaran yang klasik.
+          </p>
+          <p style="margin-bottom: 1.5rem; line-height: 1.7; background: rgba(0,30,20,0.3); padding: 1rem 1.5rem; border-radius: 28px; border-left: 5px solid #b0ff90;" data-aos="zoom-in" data-aos-delay="300">
+            <i class="fas fa-quote-left" style="color: #b0ff90; margin-right: 6px;"></i> 
+            Botol plastik hijau memanjang dengan desain full body hijau. 
+            Warna hijau segar melambangkan kesegaran lemon-limau asli. 
+            Kemasan 600ml pas buat berbagi. <strong>#SpriteHijau</strong>
+          </p>
+          <div class="mini-cta-grid">
+            <button class="mini-btn" data-aos="flip-left" data-aos-delay="100"><i class="fas fa-flask"></i> Rasa Asli</button>
+            <button class="mini-btn" data-aos="flip-left" data-aos-delay="200"><i class="fas fa-recycle"></i> Plastik Daur Ulang</button>
+            <button class="mini-btn" data-aos="flip-left" data-aos-delay="300"><i class="fas fa-cube"></i> 600ml</button>
+            <button class="mini-btn" data-aos="flip-left" data-aos-delay="400"><i class="fas fa-star"></i> Ulasan 4.9</button>
+            <button class="mini-btn" data-aos="flip-left" data-aos-delay="500"><i class="fas fa-truck-fast"></i> Estimasi Kirim</button>
+            <button class="mini-btn" data-aos="flip-left" data-aos-delay="600"><i class="fas fa-tag"></i> Promo Botol</button>
+          </div>
+          <div class="price-section" style="margin-top: 1.5rem;" data-aos="fade-up" data-aos-delay="400">
+            <div class="price-big">Rp 11.500 <small>/botol</small></div>
+            <div class="badge"><i class="fas fa-gift"></i> +Ice Pack</div>
+          </div>
+          <div class="cta-group" data-aos="fade-up" data-aos-delay="500">
+            <button class="btn-primary"><i class="fas fa-cart-plus"></i> Pesan Botol</button>
+            <button class="btn-outline"><i class="fas fa-heart"></i> Favoritkan</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: GAMBAR 3D BERPUSAR -->
+      <div class="slide-three">
+        <canvas id="imageCanvas" class="canvas-3d-image" width="800" height="600"></canvas>
+        <div class="slide-three-title">Sprite Segar Beda Level</div>
+        <div class="slide-three-subtitle">Rasa Lemon-Lime yang Ikonik dalam Kemasan Terbaru</div>
+      </div>
+
+      <!-- SLIDE 4: KARUSEL GAMBAR DEMPET TANPA KOTAK -->
+      <div class="slide-four">
+        <h2 class="slide-four-title" data-aos="fade-down">📸 SPRITE ASLI PADA UMUMNYA</h2>
+        <p class="slide-four-sub" data-aos="fade-up" data-aos-delay="150">hasil asli buatan kami</p>
+        
+        <!-- Swiper Container - Tanpa background, border, shadow, atau padding -->
+        <div class="swiper mySwiper" data-aos="fade-up" data-aos-delay="300">
+          <div class="swiper-wrapper">
+            <!-- Slide 1 - Hanya gambar polos -->
+            <div class="swiper-slide">
+              <div class="slide-img">
+                <img src="sprite.jpg" alt="Sprite kaleng">
+              </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="swiper-slide">
+              <div class="slide-img">
+                <img src="sprite.jpg" alt="Sprite botol hijau">
+              </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="swiper-slide">
+              <div class="slide-img">
+                <img src="sprite.jpg" alt="Sprite pet 1L">
+              </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="swiper-slide">
+              <div class="slide-img">
+                <img src="sprite.jpg" alt="Sprite gelas">
+              </div>
+            </div>
+            <!-- Slide 5 -->
+            <div class="swiper-slide">
+              <div class="slide-img">
+                <img src="sprite.jpg" alt="Sprite zero kaleng">
+              </div>
+            </div>
+            <!-- Slide 6 -->
+            <div class="swiper-slide">
+              <div class="slide-img">
+                <img src="sprite.jpg" alt="Edisi Lemon-Lime">
+              </div>
+            </div>
+            <!-- Slide 7 -->
+            <div class="swiper-slide">
+              <div class="slide-img">
+                <img src="sprite.jpg" alt="Sprite With Ice">
+              </div>
+            </div>
+            <!-- Slide 8 -->
+            <div class="swiper-slide">
+              <div class="slide-img">
+                <img src="sprite.jpg" alt="Botol Kaca Retro">
+              </div>
+            </div>
+            <!-- Slide 9 -->
+            <div class="swiper-slide">
+              <div class="slide-img">
+                <img src="sprite.jpg" alt="Sprite Summer 250ml">
+              </div>
+            </div>
+            <!-- Slide 10 -->
+            <div class="swiper-slide">
+              <div class="slide-img">
+                <img src="sprite.jpg" alt="Limited Green Edition">
+              </div>
+            </div>
+            <!-- Slide 11 (duplikat untuk loop lebih panjang) -->
+            <div class="swiper-slide">
+              <div class="slide-img">
+                <img src="sprite.jpg" alt="Sprite kaleng">
+              </div>
+            </div>
+            <!-- Slide 12 -->
+            <div class="swiper-slide">
+              <div class="slide-img">
+                <img src="sprite.jpg" alt="Sprite botol hijau">
+              </div>
+            </div>
+          </div>
+          <!-- Navigation buttons disembunyikan via CSS -->
+        </div>
+        
+        <p style="margin-top: 2rem; color: #d2ffc5; opacity:0.9;" data-aos="fade-up">
+          <i class="fas fa-arrow-right"></i> Gambar polos & dempet, bergerak kontinu ke kanan
+        </p>
+      </div>
+    </div>
+
+    <!-- Testimonial -->
+    <div class="testimonial-section" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
+      <div class="testi-item" data-aos="zoom-in" data-aos-delay="200">
+        <i class="fas fa-tint"></i>
+        <div class="testi-text"><p>+2,5 juta kaleng terjual</p><small>bulan ini</small></div>
+      </div>
+      <div class="testi-item" data-aos="zoom-in" data-aos-delay="400">
+        <i class="fas fa-star"></i>
+        <div class="testi-text"><p>4.9 ★ (31rb ulasan)</p><small>kepuasan pelanggan</small></div>
+      </div>
+      <div class="testi-item" data-aos="zoom-in" data-aos-delay="600">
+        <i class="fas fa-truck"></i>
+        <div class="testi-text"><p>Pengiriman cepat</p><small>2-3 jam sampai</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js import -->
+  <script type="importmap">
+    { "imports": { "three": "https://unpkg.com/three@0.128.0/build/three.module.js" } }
+  </script>
+
+  <!-- AOS Library -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  
+  <script>
+    AOS.init({
+      duration: 1200,
+      once: false,
+      mirror: true,
+      offset: 50,
+      easing: 'ease-in-out',
+      anchorPlacement: 'top-bottom',
+    });
+
+    // Inisialisasi Swiper untuk karusel gambar polos & dempet
+    const swiper = new Swiper('.mySwiper', {
+      slidesPerView: 'auto',
+      spaceBetween: 0, // DEMPET - tidak ada jarak antar slide
+      loop: true,
+      speed: 4000, // kecepatan geser
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+        stopOnLastSlide: false,
+      },
+      freeMode: true,
+      freeModeMomentum: false,
+      loopAdditionalSlides: 5,
+      allowTouchMove: true,
+      // Nonaktifkan semua navigasi
+      navigation: false,
+      pagination: false,
+      scrollbar: false,
+    });
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'https://unpkg.com/three@0.128.0/examples/jsm/controls/OrbitControls.js';
+
+    // Fungsi untuk membuat kaleng 3D (SLIDE 1)
+    function createCan(canvasId, targetY = 1.2, autoRotateSpeed = 2.0) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      renderer.setSize(width, height, false);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
+
+      const sceneLocal = new THREE.Scene();
+      sceneLocal.background = null;
+
+      const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+      camera.position.set(4, 2.0, 5.5);
+      camera.lookAt(0, targetY, 0);
+
+      const controls = new OrbitControls(camera, canvas);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = autoRotateSpeed;
+      controls.enableZoom = false;
+      controls.enablePan = false;
+      controls.maxPolarAngle = Math.PI / 2.2;
+      controls.minPolarAngle = 0.1;
+      controls.target.set(0, targetY, 0);
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0x404060);
+      sceneLocal.add(ambientLight);
+      const keyLight = new THREE.DirectionalLight(0xfff5e6, 1.5);
+      keyLight.position.set(2, 4, 5);
+      sceneLocal.add(keyLight);
+      const fillLight = new THREE.DirectionalLight(0xd4ffcc, 1.0);
+      fillLight.position.set(-4, 2, 3);
+      sceneLocal.add(fillLight);
+      const backLight = new THREE.PointLight(0xaaffaa, 1.0);
+      backLight.position.set(1, 2, -5);
+      sceneLocal.add(backLight);
+      const topLight = new THREE.PointLight(0xffffff, 0.8);
+      topLight.position.set(0, 5, 2);
+      sceneLocal.add(topLight);
+
+      // Texture functions
+      function createCanTexture() {
+        const canvas = document.createElement('canvas'); canvas.width = 1024; canvas.height = 1024;
+        const ctx = canvas.getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, 1024, 0);
+        gradient.addColorStop(0, '#3ba84a'); gradient.addColorStop(0.3, '#4cbf5a'); gradient.addColorStop(0.7, '#4cbf5a'); gradient.addColorStop(1, '#3ba84a');
+        ctx.fillStyle = gradient; ctx.fillRect(0,0,1024,1024);
+        ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = 4;
+        for (let i=0; i<20; i++) { ctx.beginPath(); ctx.moveTo(0,i*100); ctx.lineTo(1024,i*100); ctx.stroke(); }
+        ctx.font = 'bold 140px "Inter", Arial, sans-serif'; ctx.fillStyle = '#ffffff'; ctx.textAlign = 'center'; ctx.fillText('SPRITE',512,400);
+        ctx.font = 'bold 140px "Inter"'; ctx.fillStyle = 'rgba(0,0,0,0.2)'; ctx.fillText('SPRITE',515,405);
+        ctx.font = 'bold 60px "Inter"'; ctx.fillStyle = '#ffffcc'; ctx.fillText('Lemon-Lime',512,550);
+        ctx.font = '100px Arial'; ctx.fillStyle = '#ffff99'; ctx.fillText('🍋',512,700);
+        ctx.fillStyle = 'rgba(255,255,255,0.4)'; for (let i=0; i<30; i++) { ctx.beginPath(); ctx.arc(200+Math.random()*624,750+Math.random()*200,8+Math.random()*15,0,Math.PI*2); ctx.fill(); }
+        ctx.fillStyle = '#2d8a3a'; ctx.fillRect(0,0,1024,60); ctx.fillRect(0,964,1024,60);
+        ctx.font = '30px "Inter"'; ctx.fillStyle = '#ffffff'; ctx.fillText('330ml',512,900);
+        ctx.font = '25px "Inter"'; ctx.fillStyle = '#e0ffe4'; ctx.fillText('Kemasan Praktis',512,950);
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.wrapS = THREE.RepeatWrapping; texture.wrapT = THREE.RepeatWrapping; texture.repeat.set(1,1.2);
+        return texture;
+      }
+      function createTopBottomTexture() {
+        const canvas = document.createElement('canvas'); canvas.width=512; canvas.height=512;
+        const ctx = canvas.getContext('2d');
+        const gradient = ctx.createRadialGradient(256,256,0,256,256,256);
+        gradient.addColorStop(0,'#dddddd'); gradient.addColorStop(0.5,'#aaaaaa'); gradient.addColorStop(1,'#888888');
+        ctx.fillStyle = gradient; ctx.fillRect(0,0,512,512);
+        ctx.strokeStyle = '#ffffff'; ctx.lineWidth=10; ctx.beginPath(); ctx.arc(256,256,200,0,Math.PI*2); ctx.stroke();
+        ctx.font = 'bold 80px "Inter"'; ctx.fillStyle = '#3ba84a'; ctx.textAlign='center'; ctx.fillText('S',256,300);
+        return new THREE.CanvasTexture(canvas);
+      }
+      function createRimTexture() {
+        const canvas = document.createElement('canvas'); canvas.width=256; canvas.height=256;
+        const ctx = canvas.getContext('2d'); ctx.fillStyle = '#c0c0c0'; ctx.fillRect(0,0,256,256);
+        ctx.strokeStyle = '#ffffff'; ctx.lineWidth=8; ctx.beginPath(); ctx.arc(128,128,100,0,Math.PI*2); ctx.stroke();
+        return new THREE.CanvasTexture(canvas);
+      }
+      const canTexture = createCanTexture();
+      const topBottomTexture = createTopBottomTexture();
+      const rimTexture = createRimTexture();
+
+      const canMaterial = new THREE.MeshStandardMaterial({ map: canTexture, roughness: 0.3, metalness: 0.7 });
+      const topBottomMaterial = new THREE.MeshStandardMaterial({ map: topBottomTexture, roughness: 0.2, metalness: 0.8 });
+      const rimMaterial = new THREE.MeshStandardMaterial({ map: rimTexture, roughness: 0.1, metalness: 0.9 });
+
+      const canGroup = new THREE.Group();
+
+      // badan kaleng
+      const canBody = new THREE.Mesh(new THREE.CylinderGeometry(0.9,0.9,2.4,64), canMaterial);
+      canBody.position.y = 1.2; canGroup.add(canBody);
+      
+      // transisi atas
+      const topTransition = new THREE.Mesh(new THREE.CylinderGeometry(0.86,0.9,0.15,48), new THREE.MeshStandardMaterial({ color:0xcccccc, metalness:0.8, roughness:0.2 }));
+      topTransition.position.y = 2.4; canGroup.add(topTransition);
+      const topRim = new THREE.Mesh(new THREE.TorusGeometry(0.82,0.06,16,48), rimMaterial);
+      topRim.rotation.x = Math.PI/2; topRim.position.y = 2.5; canGroup.add(topRim);
+      const topLid = new THREE.Mesh(new THREE.CylinderGeometry(0.78,0.78,0.1,48), topBottomMaterial);
+      topLid.position.y = 2.55; canGroup.add(topLid);
+      const lidRing = new THREE.Mesh(new THREE.TorusGeometry(0.4,0.04,8,32), new THREE.MeshStandardMaterial({ color:0xeeeeee, metalness:0.9, roughness:0.1 }));
+      lidRing.rotation.x = Math.PI/2; lidRing.position.y = 2.58; lidRing.position.z = 0.5; canGroup.add(lidRing);
+
+      // bawah
+      const bottomTransition = new THREE.Mesh(new THREE.CylinderGeometry(0.86,0.9,0.15,48), new THREE.MeshStandardMaterial({ color:0xcccccc, metalness:0.8, roughness:0.2 }));
+      bottomTransition.position.y = 0.15; canGroup.add(bottomTransition);
+      const bottomLid = new THREE.Mesh(new THREE.CylinderGeometry(0.82,0.82,0.1,48), topBottomMaterial);
+      bottomLid.position.y = 0.05; canGroup.add(bottomLid);
+      const bottomRing = new THREE.Mesh(new THREE.TorusGeometry(0.78,0.04,8,48), new THREE.MeshStandardMaterial({ color:0xdddddd, metalness:0.8, roughness:0.2 }));
+      bottomRing.rotation.x = Math.PI/2; bottomRing.position.y = 0.1; canGroup.add(bottomRing);
+      const bottomCap = new THREE.Mesh(new THREE.CylinderGeometry(0.7,0.7,0.08,32), new THREE.MeshStandardMaterial({ color:0xaaaaaa, metalness:0.9, roughness:0.1 }));
+      bottomCap.position.y = 0.0; canGroup.add(bottomCap);
+
+      const seal = new THREE.Mesh(new THREE.TorusGeometry(0.83,0.02,8,48), new THREE.MeshStandardMaterial({ color:0x99cc00, emissive:0x112200 }));
+      seal.rotation.x = Math.PI/2; seal.position.y = 2.52; canGroup.add(seal);
+
+      // gelembung
+      for (let i=0; i<8; i++) {
+        const bubble = new THREE.Mesh(new THREE.SphereGeometry(0.02+Math.random()*0.03,4), new THREE.MeshStandardMaterial({ color:0xffffff, emissive:0x448844, transparent:true, opacity:0.6 }));
+        bubble.position.set((Math.random()-0.5)*1.2, 0.5+Math.random()*1.8, 0.85);
+        canGroup.add(bubble);
+      }
+
+      sceneLocal.add(canGroup);
+
+      // lantai
+      const floor = new THREE.Mesh(new THREE.CircleGeometry(3,32), new THREE.MeshStandardMaterial({ color:0x225533, emissive:0x112211, transparent:true, opacity:0.2, side:THREE.DoubleSide }));
+      floor.rotation.x = -Math.PI/2; floor.position.y = -0.1; sceneLocal.add(floor);
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(sceneLocal, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      });
+    }
+
+    // Fungsi untuk membuat BOTOL HIJAU MEMANJANG dengan efek gerak kiri-kanan
+    function createLongGreenBottle(canvasId, targetY = 1.4) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      renderer.setSize(width, height, false);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
+
+      const sceneLocal = new THREE.Scene();
+      sceneLocal.background = null;
+
+      const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+      camera.position.set(4, 2.0, 5.5);
+      camera.lookAt(0, targetY, 0);
+
+      const controls = new OrbitControls(camera, canvas);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.autoRotate = false;
+      controls.enableZoom = false;
+      controls.enablePan = false;
+      controls.maxPolarAngle = Math.PI / 2.2;
+      controls.minPolarAngle = 0.1;
+      controls.target.set(0, targetY, 0);
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0x404060);
+      sceneLocal.add(ambientLight);
+      const keyLight = new THREE.DirectionalLight(0xfff5e6, 1.5);
+      keyLight.position.set(2, 4, 5);
+      sceneLocal.add(keyLight);
+      const fillLight = new THREE.DirectionalLight(0xd4ffcc, 1.0);
+      fillLight.position.set(-4, 2, 3);
+      sceneLocal.add(fillLight);
+      const backLight = new THREE.PointLight(0xaaffaa, 1.0);
+      backLight.position.set(1, 2, -5);
+      sceneLocal.add(backLight);
+      const topLight = new THREE.PointLight(0xffffff, 0.8);
+      topLight.position.set(0, 5, 2);
+      sceneLocal.add(topLight);
+
+      // Material
+      const greenMaterial = new THREE.MeshStandardMaterial({
+        color: 0x2e8b57,
+        emissive: 0x102010,
+        roughness: 0.3,
+        metalness: 0.1,
+        transparent: true,
+        opacity: 0.9
+      });
+
+      const capMaterial = new THREE.MeshStandardMaterial({ color: 0x1b4d3b, roughness: 0.4 });
+      const labelMaterial = new THREE.MeshStandardMaterial({ color: 0xffdd44, emissive: 0x221100 });
+
+      const bottleGroup = new THREE.Group();
+
+      // Badan utama
+      const bodyMain = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.85, 2.4, 32), greenMaterial);
+      bodyMain.position.y = 1.2;
+      bottleGroup.add(bodyMain);
+
+      // Leher botol
+      const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.7, 0.6, 32), greenMaterial);
+      neck.position.y = 2.4;
+      bottleGroup.add(neck);
+
+      // Tutup botol
+      const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.4, 32), capMaterial);
+      cap.position.y = 2.75;
+      bottleGroup.add(cap);
+
+      // Detail tutup
+      const capRim = new THREE.Mesh(new THREE.TorusGeometry(0.55, 0.05, 8, 24), new THREE.MeshStandardMaterial({ color: 0x2d6a4f }));
+      capRim.rotation.x = Math.PI/2;
+      capRim.position.y = 2.9;
+      bottleGroup.add(capRim);
+
+      // Label
+      const label = new THREE.Mesh(new THREE.CylinderGeometry(0.76, 0.76, 0.8, 32), labelMaterial);
+      label.position.y = 1.3;
+      bottleGroup.add(label);
+
+      // Bawah botol
+      const base = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 0.15, 32), greenMaterial);
+      base.position.y = 0.075;
+      bottleGroup.add(base);
+
+      // Texture label
+      const labelCanvas = document.createElement('canvas');
+      labelCanvas.width = 512;
+      labelCanvas.height = 256;
+      const lCtx = labelCanvas.getContext('2d');
+      lCtx.fillStyle = '#ffdd44';
+      lCtx.fillRect(0, 0, 512, 256);
+      lCtx.font = 'bold 80px "Inter", sans-serif';
+      lCtx.fillStyle = '#1b4d3b';
+      lCtx.textAlign = 'center';
+      lCtx.fillText('SPRITE', 256, 140);
+      lCtx.font = '40px "Inter"';
+      lCtx.fillStyle = '#2d6a4f';
+      lCtx.fillText('Lemon-Lime', 256, 200);
+      const labelTexture = new THREE.CanvasTexture(labelCanvas);
+
+      const labelFine = new THREE.Mesh(new THREE.CylinderGeometry(0.77, 0.77, 0.6, 32), new THREE.MeshStandardMaterial({ map: labelTexture }));
+      labelFine.position.y = 1.5;
+      bottleGroup.add(labelFine);
+
+      // Gelembung
+      for (let i = 0; i < 6; i++) {
+        const bubble = new THREE.Mesh(new THREE.SphereGeometry(0.04 + Math.random() * 0.07, 6), new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x226622, transparent: true, opacity: 0.3 }));
+        bubble.position.set((Math.random() - 0.5) * 0.9, 0.6 + Math.random() * 1.8, 0.7);
+        bottleGroup.add(bubble);
+      }
+
+      sceneLocal.add(bottleGroup);
+
+      // Lantai
+      const floor = new THREE.Mesh(new THREE.CircleGeometry(3, 32), new THREE.MeshStandardMaterial({ color: 0x225533, emissive: 0x112211, transparent: true, opacity: 0.2, side: THREE.DoubleSide }));
+      floor.rotation.x = -Math.PI / 2;
+      floor.position.y = -0.1;
+      sceneLocal.add(floor);
+
+      let time = 0;
+      function animate() {
+        requestAnimationFrame(animate);
+        time += 0.01;
+        const offsetX = Math.sin(time * 1.5) * 0.3;
+        bottleGroup.position.x = offsetX;
+        controls.update();
+        renderer.render(sceneLocal, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      });
+    }
+
+    // Fungsi untuk membuat GAMBAR 3D BERPUSAR DI TENGAH (SLIDE 3)
+    function createSpinningImage(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      renderer.setSize(width, height, false);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
+
+      const scene = new THREE.Scene();
+      scene.background = null;
+
+      const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+      camera.position.set(0, 1, 6);
+      camera.lookAt(0, 1, 0);
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0x404060);
+      scene.add(ambientLight);
+      
+      const light1 = new THREE.DirectionalLight(0xfff5e6, 1.2);
+      light1.position.set(2, 3, 4);
+      scene.add(light1);
+      
+      const light2 = new THREE.DirectionalLight(0xaaffaa, 0.8);
+      light2.position.set(-3, 2, 3);
+      scene.add(light2);
+      
+      const backLight = new THREE.PointLight(0x88ff88, 0.5);
+      backLight.position.set(0, 2, -3);
+      scene.add(backLight);
+
+      // Buat texture dari gambar (menggunakan canvas untuk membuat gambar Sprite)
+      const textureCanvas = document.createElement('canvas');
+      textureCanvas.width = 1024;
+      textureCanvas.height = 1024;
+      const ctx = textureCanvas.getContext('2d');
+
+      // Gambar background hijau gradien
+      const gradient = ctx.createLinearGradient(0, 0, 1024, 1024);
+      gradient.addColorStop(0, '#3ba84a');
+      gradient.addColorStop(0.5, '#4cbf5a');
+      gradient.addColorStop(1, '#2e8b57');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 1024, 1024);
+
+      // Gambar logo Sprite
+      ctx.font = 'bold 200px "Inter", Arial, sans-serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'center';
+      ctx.fillText('SPRITE', 512, 450);
+
+      ctx.font = 'bold 100px "Inter", Arial, sans-serif';
+      ctx.fillStyle = '#ffffcc';
+      ctx.fillText('Lemon-Lime', 512, 650);
+
+      // Gambar lemon
+      ctx.font = '180px Arial';
+      ctx.fillStyle = '#ffff99';
+      ctx.fillText('🍋', 512, 300);
+
+      // Tambahkan gelembung
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+      for (let i = 0; i < 30; i++) {
+        ctx.beginPath();
+        ctx.arc(200 + Math.random() * 624, 700 + Math.random() * 200, 10 + Math.random() * 20, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      const texture = new THREE.CanvasTexture(textureCanvas);
+
+      // Buat objek 3D (menggunakan bentuk yang menarik: lingkaran bersayap / torus knot)
+      const geometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16);
+      const material = new THREE.MeshStandardMaterial({ 
+        map: texture,
+        emissive: 0x224422,
+        roughness: 0.3,
+        metalness: 0.2,
+        side: THREE.DoubleSide
+      });
+      const knot = new THREE.Mesh(geometry, material);
+      knot.position.y = 1.2;
+      knot.rotation.x = 0.5;
+      knot.rotation.y = 0.8;
+      scene.add(knot);
+
+      // Tambahkan beberapa elemen pendukung (bola-bola kecil)
+      const sphereGeo = new THREE.SphereGeometry(0.15, 16);
+      const sphereMat = new THREE.MeshStandardMaterial({ color: 0xffaa33, emissive: 0x331100 });
+      
+      for (let i = 0; i < 6; i++) {
+        const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+        const angle = (i / 6) * Math.PI * 2;
+        sphere.position.set(Math.cos(angle) * 1.8, 1.2 + Math.sin(angle) * 0.5, Math.sin(angle) * 1.2);
+        scene.add(sphere);
+      }
+
+      // Lantai tipis
+      const floor = new THREE.Mesh(new THREE.CircleGeometry(4, 32), new THREE.MeshStandardMaterial({ color: 0x225533, emissive: 0x112211, transparent: true, opacity: 0.2, side: THREE.DoubleSide }));
+      floor.rotation.x = -Math.PI / 2;
+      floor.position.y = -0.2;
+      scene.add(floor);
+
+      // Animasi berputar di tempat
+      function animate() {
+        requestAnimationFrame(animate);
+
+        // Putar objek utama
+        knot.rotation.y += 0.01;
+        knot.rotation.x += 0.005;
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      });
+    }
+
+    // Inisialisasi semua canvas
+    createCan('spriteCanvas1', 1.2, 2.0);
+    createLongGreenBottle('spriteCanvas2', 1.4);
+    createSpinningImage('imageCanvas');
+  </script>
+</body>
+</html>
